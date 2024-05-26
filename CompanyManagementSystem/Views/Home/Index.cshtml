@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CompanyManagementSystem.Models.Company>
+
+@{
+    ViewData["Title"] = "DisplayProduct";
+}
+
+<h1>DisplayProduct</h1>
+@if (ViewBag.CompanyList == null)
+{
+<div style="color:red; font-size:20px;">
+    <b>
+        @if (ViewBag.NullList != null)
+        {
+            @ViewBag.NullList
+        }
+        @if (ViewBag.Exceptions != null)
+        {
+            @ViewBag.Exceptions
+        }
+    </b>
+</div>
+
+}
+@if (ViewBag.CompanyList != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.CompanyList)
+            {
+                <tr>
+
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Address
+                    </td>
+
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
