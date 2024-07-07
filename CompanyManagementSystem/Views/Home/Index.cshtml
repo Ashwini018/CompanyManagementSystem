@@ -5,6 +5,7 @@
 }
 
 <h1>DisplayProduct</h1>
+
 @if (ViewBag.CompanyList == null)
 {
 <div style="color:red; font-size:20px;">
@@ -21,6 +22,7 @@
 </div>
 
 }
+
 @if (ViewBag.CompanyList != null)
 {
     <table class="table">
@@ -54,6 +56,7 @@
                     <td>
                         @item.Address
                     </td>
+                    
 
                     
                 </tr>

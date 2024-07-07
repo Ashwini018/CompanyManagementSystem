@@ -114,63 +114,48 @@ namespace CompanyManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(Company comp)
         {
-                int rows = 0;
-                var cat = await _context.Companies.FirstOrDefaultAsync(item => item.Id == id);
-                if (cat == null)
-                    throw new ArgumentNullException("No Data Found");
-                _context.Companies.Remove(cat);
-                rows = await _context.SaveChangesAsync();
-                if (rows > 0)
+
+            int rows = 0;
+
+            if (comp.Id != null && comp.Id !=0)
+            {
+            var cat = await _context.Companies.FirstOrDefaultAsync(item => item.Id ==comp.Id);
+            if (cat == null)
+                throw new ArgumentNullException("No Data Found");
+            _context.Companies.Remove(cat);
+            rows = await _context.SaveChangesAsync();
+            if (rows > 0)
             {
                 return Json("Data deleted Successfuly");
-             }
+            }
             else
             {
                 //String message = "Failed";
                 return Json("something went wrong!!");
             }
+        }
+            else
+            {
+                var cat = await _context.Companies.FirstOrDefaultAsync(item => item.Name == comp.Name);
+                if (cat == null)
+                    throw new ArgumentNullException("No Data Found");
+                _context.Companies.Remove(cat);
+                rows = await _context.SaveChangesAsync();
+                if (rows > 0)
+                {
+                     return Json("Data deleted Successfuly");
+                }
+                else
+                {
+                    return Json("something went wrong!!");
+                }
+            }
+                
 
         }
 
-        //public async Company getData(int Id)
-        //{
-        //    Company compp = new Company();
-        //    try
-        //    {
-
-            //        List<Company> list = new List<Company>();
-            //        list = _context.Companies.ToList();
-            //        for(int i=0;i<list.Count; i++)
-            //        {
-            //            if (list[i].Id ==Id)
-            //            {
-            //                return list[i];
-            //            }
-            //        }
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw new Exception("SomeThing Went Wrong!!", ex);
-            //    }
-
-            //    return compp;
-
-            //}
-
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
     }
 }
